@@ -17,17 +17,17 @@ int main(void)
 	init_usart1();
 
 	printf("[Kernel] Start in privileged thread mode (msp_init = 0x%x).\r\n\n", (unsigned int)msp_init);
-
 	printf("[Kernel] Control: 0x%x \r\n", (unsigned int)read_ctrl());
 	printf("[Kernel] SP: 0x%x \r\n", (unsigned int)read_sp());
 	printf("[Kernel] MSP: 0x%x \r\n", (unsigned int)read_msp());
 	printf("[Kernel] PSP: 0x%x \r\n\n", (unsigned int)read_psp());
 
 	printf("[Kernel] Switch to unprivileged thread mode & start user task (psp_init = 0x%x).\r\n\n", (unsigned int)psp_init);
-
+	printf("\n%x",(unsigned int)user_task);
+	printf("\r\n%x\r\n",(unsigned int)&user_task);
 	//start user task
-	??????
-
+	start_user( (uint32_t*)user_task , (uint32_t*)psp_init );
+	user_task();
 	while (1) //should not go here
 		;
 }
